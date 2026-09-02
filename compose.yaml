@@ -15,7 +15,6 @@ services:
     build:
       context: .
       dockerfile: docker/vuejs/Dockerfile
-    working_dir: /app
     ports:
       - "5173:5173"
     volumes:
