@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\User\SigninRequest;
 use App\Http\Requests\User\SignupRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -28,14 +29,8 @@ class AuthController extends Controller
         ], 201);
     }
 
-    function signin(Request $request)
+    function signin(SigninRequest $request)
     {
-        // validate request
-        $request->validate([
-            'email' => 'required|email|exists:users,email',
-            'password' => 'required|string|min:6|max:10'
-        ]);
-
         // check user password
         $user = User::where('email', $request->email)->first();
 

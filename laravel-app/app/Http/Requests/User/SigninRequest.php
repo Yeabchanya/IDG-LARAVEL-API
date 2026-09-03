@@ -12,7 +12,7 @@ class SigninRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,8 +22,10 @@ class SigninRequest extends FormRequest
      */
     public function rules(): array
     {
+        // validate request
         return [
-            //
+            'email' => 'required|email|exists:users,email',
+            'password' => 'required|string|min:6|max:10'
         ];
     }
 }
