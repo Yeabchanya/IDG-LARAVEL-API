@@ -62,5 +62,28 @@ class AuthController extends Controller
         ], 200);
 
     }
+
+    function signout(Request $request)
+    {
+        $user = $request->user();
+
+        // option 1
+        $user->currentAccessToken()->delete();
+
+        // option 2
+        // $currentToken = $user->currentAccessToken();
+        // $user->tokens()->where('id', $currentToken->id)->delete();
+
+        return response([
+            'message' => 'User signed out.'
+        ], 200);
+    }
+    function verify(Request $request)
+    {
+        return response([
+            'message' => 'Token is valid.',
+            'user' => $request->user()
+        ], 200);
+    }
 }
 
