@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\SigninRequest;
 use App\Http\Requests\User\SignupRequest;
+use App\Http\Resources\User\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -14,7 +15,6 @@ class AuthController extends Controller
 {
     function signup(SignupRequest $request)
     {
-
         // create user store in database
         $user = User::create([
             'name' => $request->name,
@@ -25,7 +25,7 @@ class AuthController extends Controller
         // return response 
         return response()->json([
             'message' => 'User created successfully',
-            'user' => $user
+            'user' => new UserResource($user)
         ], 201);
     }
 
@@ -47,7 +47,7 @@ class AuthController extends Controller
         // return response
         return response([
             'message' => 'User signed in.',
-            'user' => $user,
+            'user' => new UserResource($user),
             'token' => $token
         ], 200);
 
@@ -72,7 +72,7 @@ class AuthController extends Controller
     {
         return response([
             'message' => 'Token is valid.',
-            'user' => $request->user()
+            'user' => new UserResource($request->user())
         ], 200);
     }
 }
