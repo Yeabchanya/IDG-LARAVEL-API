@@ -12,6 +12,9 @@ const router = createRouter({
       path: "/",
       name: "auth.signin",
       component: SignIn,
+      meta: {
+        guarded: false,
+      },
     },
     {
       path: "/signout",
@@ -22,11 +25,17 @@ const router = createRouter({
       path: "/signup",
       name: "auth.signup",
       component: SignUp,
+      meta: {
+        guarded: false,
+      },
     },
     {
       path: "/dashboard",
       name: "dashboard",
       component: Dashboard,
+      meta: {
+        guarded: true,
+      },
     },
     {
       path: "/:pathMatch(.*)*",
