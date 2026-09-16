@@ -22,6 +22,8 @@ class AuthController extends Controller
             'password' => $request->password
         ]);
 
+        $user->sendEmailVerificationNotification();
+
         // return response 
         return response()->json([
             'message' => 'User created successfully',
