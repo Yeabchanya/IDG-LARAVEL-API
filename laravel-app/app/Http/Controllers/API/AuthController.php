@@ -22,7 +22,7 @@ class AuthController extends Controller
             'password' => $request->password
         ]);
 
-        $user->sendEmailVerificationNotification();
+        $user->sendEmailVerificationNotification($request->callback_url);
 
         // return response 
         return response()->json([
@@ -75,6 +75,23 @@ class AuthController extends Controller
         return response([
             'message' => 'Token is valid.',
             'user' => new UserResource($request->user())
+        ], 200);
+    }
+
+    function verifyEmail(Request $request)
+    {
+        $user = User::findOrFail($request->route('id'));
+
+        if ($user->hasVerifiedEmail()) {
+            throw ValidationException::withMessages([
+                'email' => 'Email is already verified.',
+            ]);
+        }
+
+        $user->markEmailAsVerified();
+
+        return response([
+            'message' => 'Email verified successfully.'
         ], 200);
     }
 }
