@@ -4,6 +4,7 @@ import SignIn from "@/components/auth/SignIn.vue";
 import SignOut from "@/components/auth/SignOut.vue";
 import SignUp from "@/components/auth/SignUp.vue";
 import Dashboard from "@/components/pages/Dashboard.vue";
+import VerifyEmail from "@/components/auth/VerifyEmail.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -35,6 +36,14 @@ const router = createRouter({
       component: Dashboard,
       meta: {
         guarded: true,
+      },
+    },
+    {
+      path: "/verify/email",
+      name: "auth.verify.email",
+      component: VerifyEmail,
+      meta: {
+        guarded: false,
       },
     },
     {
