@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\User\SendVerificationEmailRequest;
 use App\Http\Requests\User\SigninRequest;
 use App\Http\Requests\User\SignupRequest;
 use App\Http\Resources\User\UserResource;
@@ -92,6 +93,23 @@ class AuthController extends Controller
 
         return response([
             'message' => 'Email verified successfully.'
+        ], 200);
+    }
+
+    function sendVerificationEmail(SendVerificationEmailRequest $request)
+    {
+        $user = User::where('email', $request->email)->first();
+
+        if ($user->hasVerifiedEmail()) {
+            throw ValidationException::withMessages([
+                'email' => 'Email is already verified.',
+            ]);
+        }
+
+        $user->sendEmailVerificationNotification($request->callback_url);
+
+        return response([
+            'message' => 'Verification email resent.'
         ], 200);
     }
 }
