@@ -5,6 +5,8 @@ import SignOut from "@/components/auth/SignOut.vue";
 import SignUp from "@/components/auth/SignUp.vue";
 import Dashboard from "@/components/pages/Dashboard.vue";
 import VerifyEmail from "@/components/auth/VerifyEmail.vue";
+import ResetPassword from "@/components/auth/ResetPassword.vue";
+import SetNewPassword from "@/components/auth/SetNewPassword.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -45,6 +47,18 @@ const router = createRouter({
       meta: {
         guarded: false,
       },
+    },
+    {
+      path: "/reset-password",
+      name: "auth.reset-password",
+      component: ResetPassword,
+      meta: { guarded: false },
+    },
+    {
+      path: "/set-new-password",
+      name: "auth.set-new-password",
+      component: SetNewPassword,
+      meta: { guarded: false },
     },
     {
       path: "/:pathMatch(.*)*",
